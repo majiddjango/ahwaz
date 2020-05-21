@@ -1,16 +1,16 @@
 {% if not search_page %}
-<div class="row m-0 p-0">
-  <form id='search_form' class="p-3 my-2 w-75" action="{% url 'search' %}" method="GET">
+<div class="container-fluid">
+  <form id='search_form' class="my-2" action="{% url 'search' %}" method="GET">
     <div class="row">
-      <div id='search_col' class="col-8 p-0 mr-4">
+      <div id='search_col' class="col-8 p-0 m-0 pr-5">
         <input id="search" name="search" class="form-control w-100" type="search" placeholder="جستجو ..." aria-label="Search">
         <div class="text-right card m-0 p-0" id="search_results" style="display: none;">
       
         </div>
   
       </div>
-      <div class="col-3">
-        <button class="btn btn-outline-success my-2 my-sm-0 float-right" type="submit">جستجو</button>
+      <div class="col-4 p-0 m-0">
+        <button class="btn btn-outline-success m-0 py-2 float-right" type="submit">جستجو</button>
 
       </div>
     </div>
