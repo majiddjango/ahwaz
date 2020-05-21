@@ -1,0 +1,42 @@
+.justify{
+    text-align: justify !important;
+}
+.mega_content{
+    right: 0px !important;
+}
+.link_li{
+    min-height: unset !important;
+}
+
+@keyframes blink {
+    50% {
+      opacity: 0.0;
+    }
+  }
+  @-webkit-keyframes blink {
+    50% {
+      opacity: 0.0;
+    }
+  }
+  .blink-m {
+    animation: blink 2s step-start 0s infinite;
+    -webkit-animation: blink 2s step-start 0s infinite;
+  }
+
+  .bold{
+    font-weight: bold;
+  }
+
+  .cke{
+    width: 100% !important;
+  }
+  .django-ckeditor-widget{
+    width: 100% !important;
+  }
+  #user_drop {
+    left: 10px !important;
+    width: 200px !important;
+}
+.bborder{
+  border-bottom: 2px solid black;
+}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load comment_tags %}
+{% block content %}
+<div class="row m-0 p-0 text-right">
+    <div class="col-12 col-md-3">
+        <img src="{{stor.image.url}}" alt="{{store.name}}">
+    </div>
+    <div class="col-12 col-md-9">
+        <h1>{{store.name}}</h1>
+        <h4>محدوده فعالیت : <a href="{% url 'area_products' store.area %}">{{store.area}}</a></h4>
+        <h4>شماره تماس : {{store.phone}}</h4>
+        
+        {% if store.mobile %}
+            <h4>شماره همراه : {{store.mobile}}</h4>
+        {% endif %}
+
+        <p>آدرس : </p>
+        {{store.address|safe}}
+            
+    </div>
+</div>
+<hr class="horizontal">
+
+
+{% if products %}
+    <div class="row m-0 p-0 mt-1">
+        {% for p in products %}
+            {% include 'product/product.html' %}
+        {% endfor %}
+    </div>
+    
+{% else %}
+    <div class="row m-0 p-0 text-center p-5 card">
+        <h5>متاسفانه محصولی یافت نشد.</h5>
+    </div>
+    
+{% endif %}
+
+<div class="row m-0 px-3 mt-2 py-2 mt-2">
+    <div class="card w-100 text-right">
+        <div class="card-header">
+            نظرات ({{store|count_me}})
+        </div>
+        <div class="card-body">
+            {% showcomments store %}
+            {% showform store %}
+        
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+    

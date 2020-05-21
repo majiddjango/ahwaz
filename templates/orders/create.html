@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="row m-0 p-0">
+    <div class="card w-100 text-right">
+        <form action="" method="POST">
+            {% csrf_token %}
+        <div class="card-header">
+            فرم سفارشات
+        </div>
+        <div class="card-body">
+            {{form.media}}
+            
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.first_name.label}}</div>
+                        
+                        {% if request.user.profile.name %}
+                        <div class="col-9">{% render_field form.first_name class="form-control" value=request.user.profile.name %}</div>
+                        {% else %}
+                        <div class="col-9">{% render_field form.first_name class="form-control"  %}</div>
+                        {% endif %}
+                            
+                        
+                    </div>
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.last_name.label}}</div>
+                        {% if request.user.profile.last_name %}
+                        <div class="col-9">{% render_field form.last_name class="form-control" value=request.user.profile.last_name %}</div>
+                        {% else %}
+                        <div class="col-9">{% render_field form.last_name class="form-control"  %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.telephone.label}}</div>
+                        {% if request.user.profile.phone %}
+                        <div class="col-9">{% render_field form.telephone class="form-control" value=request.user.profile.phone %}</div>
+                        {% else %}
+                        <div class="col-9">{% render_field form.telephone class="form-control"  %}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.email.label}}</div>
+                        {% if request.user.email %}
+                        <div class="col-9">{% render_field form.email class="form-control" value=request.user.email %}</div>
+                        {% else %}
+                        <div class="col-9">{% render_field form.email class="form-control"  %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-12 row">
+                        <div class="col-12">{{form.address.label}}</div>
+                        {% if request.user.profile.address %}
+                        <div class="col-12">
+                            <textarea class="form-control" rows="8" name="{{form.address.name}}" >
+                                {{request.user.profile.address}}
+                            </textarea>
+                        </div>
+                        {% else %}
+                        <div class="col-12">{% render_field form.address class="form-control"  %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-12 row">
+                        <div class="col-12">{{form.location.label}}</div>
+                        {% if request.user.profile.location %}
+                        <div class="col-12">{% render_field form.location class="form-control" value="hiii" %}</div>
+                        {% else %}
+                        <div class="col-12">{% render_field form.location class="form-control"  %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            
+        </div>
+        <div class="card-footer text-muted text-center">
+            <button type="submit" class="btn btn-primary">پرداخت</button>
+        </div>
+    </form>
+    </div>
+
+</div>
+{% endblock content %}
+
+
+{% block extrajs %}
+
+{% if request.user.profile.location %}
+
+<script>
+    
+    document.getElementById('map_id').setAttribute('value',"{{request.user.profile.location}}");
+    mymap.setView([{{request.user.profile.location}}], 13);
+    var marker = L.marker([{{request.user.profile.location}}]).addTo(layerGroup);
+
+
+</script>
+{% endif %}
+{% endblock extrajs %}
+    

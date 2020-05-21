@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+media="screen,projection" />
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/map.css' %}"
+media="screen,projection" />
+{% endblock styles %}
+    
+
+{% block sidebar1 %}
+    <div class="card text-center mb-2">
+        
+        {% if profile.image %}
+        <img class="card-img-top" src="{{profile.image.url}}" alt="{{profile.name}}">
+        {% else %}
+        <img class="card-img-top" src="{% static 'shop/img/user_av.jpg' %}" alt="{{profile.name}}">
+        {% endif %}
+            
+      
+      <div class="card-body">
+        <h4 class="card-title"><a href="profile">پروفایل شما : {{profile}}</a></h4>
+        
+        <a class="btn btn-danger" href="{% url 'logout' %}">خروج</a>
+        <a class="btn btn-secondary" href="{% url 'update_profile' %}">تغییر مشخصات </a>
+      </div>
+    </div>
+
+    <div class="card text-right my-1">
+        <div class="card-body">
+            <p>
+                <a href="{% url 'my_orders' %}">سفارشات من</a>
+            </p>
+        </div>
+    </div>
+{% endblock sidebar1 %}
+    
+
+{% block content %}
+   <div class="row m-0 p-0">
+       <div class="card w-100 text-right">
+           <div class="card-header">
+               پروفایل شما
+           </div>
+           <div class="card-body">
+               <div class="row p-2 m-1">
+                   <div class="col border-right border-secondary">نام : 
+                   {% if profile.name %}
+                   {{profile.name}}
+                   {% else %}
+                       -
+                   {% endif %}
+                       </div>
+                   <div class="col border-right border-secondary">
+                       نام خانوادگی : 
+                       {% if profile.last_name %}
+                       {{profile.last_name}}
+                       {% else %}
+                           -
+                       {% endif %}
+                    </div>
+               </div>
+               <div class="row p-2 m-1">
+                <div class="col border-right border-secondary">
+                   ایمیل : 
+                    {% if profile.email %}
+                    {{profile.email}}
+                    {% else %}
+                        -
+                    {% endif %}
+                 </div>
+
+                 <div class="col border-right border-secondary">
+                    تلفن : 
+                    {% if profile.telephone %}
+                    {{profile.telephone}}
+                    {% else %}
+                        -
+                    {% endif %}
+                 </div>
+               </div>
+
+               <div class="row m-1 p-2">
+                   <div class="col border-right border-secondary">
+                       آدرس : 
+                       {% if profile.address %}
+                           {{profile.address|safe|linebreaks}}
+                       {% else %}
+                           -
+                       {% endif %}
+                   </div>
+                   <div class="col border-right border-secondary">
+                       لوکیشن : 
+                       
+                       {% if profile.location %}
+                       <div id="mapid" class="map_class"></div>
+                       {% else %}
+                           -
+                       {% endif %}
+                           
+
+
+                   </div>
+               </div>
+
+
+           </div>
+
+        </div>
+   </div>
+{% endblock content %}
+
+
+{% block extrajs %}
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    
+    {% if profile.location %}
+
+    <script>
+    var mymap = L.map('mapid').setView([{{profile.location}}], 13);
+    var layerGroup = L.layerGroup().addTo(mymap);
+    var marker = L.marker([{{profile.location}}]).addTo(layerGroup);
+    
+    
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibWFqaWQxNjUiLCJhIjoiY2s5ZHlpZzRmMDBlZzNnbGhsbWY5ZzU1ciJ9.hapfCYp2wEWNnFwkPyAC8g'
+    }).addTo(mymap);
+    
+    </script>
+        
+    {% else %}
+        
+    {% endif %}
+        
+{% endblock extrajs %}
+    

@@ -1,0 +1,114 @@
+{% extends 'store_base.html' %}
+
+
+{% block content %}
+<div class="row m-0 p-0 pb-3">
+    <div class="col-4 p-0">
+        {% if products %}
+        <div class="card text-right">
+            <div class="card-header">
+                خلاصه محصولات
+            </div>
+            <div class="card-body">
+                <p>
+                    تعداد کل محصولات : {{products.count}}
+                </p>
+                <p>
+                    محصولات فعال : {{actives.count}}
+                </p>
+                <p>
+                    محصولات در صف تایید : {{not_actives.count}}
+                </p>
+            </div>
+        </div>
+            
+        {% endif %}
+    
+    </div>
+
+    <div class="col-4 p-0 pr-1">
+        {% if items %}
+        <div class="card text-right">
+            <div class="card-header">
+                خلاصه فروش
+            </div>
+            <div class="card-body">
+                <p>
+                تعداد محصولات فروخته شده : {{items.count}}
+                </p>
+                <p>
+                    جمع کل فروش : {{sums}} تومان
+                </p>
+            </div>
+        </div>
+        {% endif %}
+            
+    
+    </div>
+</div>
+{% if products %}
+<div class="row m-0 p-0">
+    <h3>لیست محصولات شما</h3>
+    <table class="table table-striped text-right">
+        <thead>
+            <tr>
+                <th>نام محصول</th>
+                <th>قیمت (تومان)</th>
+                <th>قیمت با احتساب تخفیف (تومان)</th>
+                <th>وضعیت</th>
+                <th>تغییر</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for product in products  %}
+                <tr>
+                    <td><a href="{{product.get_absolute_url}}">{{product.name}}</a></td>
+                    <td>{{product.price}}</td>
+                    <td>
+                    {% if product.discounted_price %}
+                    {{product.discounted_price}}
+                    {% else %}
+                        -
+                    {% endif %}
+                        </td>
+                    <td>
+                        {% if product.is_active %}
+                        <span class="material-icons">
+                            done_outline
+                        </span>
+                        {% else %}
+                        <span class="material-icons">
+                            cancel
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{product.get_delete_url}}">
+                            <span class="material-icons">
+                                delete
+                            </span>
+                        </a>
+                        
+                        <a href="{{product.get_update_url}}">
+                            <span class="material-icons">
+                                edit
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+                
+        </tbody>
+    </table>
+</div>
+ 
+{% else %}
+<div class="row m-0 p-0 p-5 text-center justify-content-center">
+    <h3 class="text-center">شما هنوز محصولی ثبت نکرده اید.</h3>
+</div>
+
+{% endif %}
+    
+
+{% endblock content %}

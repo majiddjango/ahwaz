@@ -1,0 +1,22 @@
+<div class="list-group-flush">
+    
+    {% for p in products %}
+    <div class="list-group-item">
+        <p class="mb-0">
+            <a href="{{p.get_absolute_url}}">
+                <img class="img-icon ml-2" src="{{p.image.url}}" alt="{{p.name}}">
+            </a>
+        <a href="{{p.get_absolute_url}}">{{p.name}}</a> در دسته بندی : <a class="text-muted" href="{{p.category.get_absolute_url}}">{{p.category}}</a>
+        </p>
+    </div>
+    {% empty %}
+        
+    
+        
+    <div class="list-group-item">
+        <p class="mb-0">
+            محصولی یافت نشد.
+        </p>
+    </div>
+    {% endfor %}
+</div>

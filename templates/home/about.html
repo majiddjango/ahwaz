@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="row m-0 p-0">
+        <div class="card text-right w-100">
+            <div class="card-header">
+                درباره ما
+            </div>
+            <div class="card-body">
+                {{about.description|safe}}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

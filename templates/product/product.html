@@ -1,0 +1,37 @@
+
+<div class="col-6 col-md-3 card text-right border-0 p-1 product">
+  <a class="" href="{{p.get_absolute_url}}">
+    <div class="imag_container">
+      <img class="card-img-top image" src="{{p.image.url}}" alt="{{p.name}}">
+      
+      {% if p.discounted_price %}
+      <div class="overlay">
+        <div class="text">تخفیف دارد</div>
+      </div>
+
+      {% endif %}
+        
+    </div>
+    
+    </a>
+  <div class="card-body">
+      <a href="{{p.get_absolute_url}}"><h4 class="card-title">{{p.name}}</h4></a>
+    <p class="card-text">
+        از فروشگاه :  <a href="{{p.store.get_absolute_url}}">{{p.store.name}}</a>
+    </p>
+    <p class="card-text text-center text-success">
+        
+        {% if p.discounted_price %}
+            <span class="text-danger text-takhfif">{{p.price}}</span>
+            {{p.discounted_price}}
+        {% else %}
+            {{p.price}}
+        {% endif %} تومان
+            
+    </p>
+  </div>
+  <div class="card-footer text-center bg-white">
+    <a href="{{p.get_absolute_url}}" class="blue-text">توضیحات بیشتر</a>
+  </div>
+
+</div>

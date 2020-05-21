@@ -1,0 +1,128 @@
+{% if not search_page %}
+<div class="row m-0 p-0">
+  <form id='search_form' class="p-3 my-2 w-75" action="{% url 'search' %}" method="GET">
+    <div class="row">
+      <div id='search_col' class="col-8 p-0 mr-4">
+        <input id="search" name="search" class="form-control w-100" type="search" placeholder="جستجو ..." aria-label="Search">
+        <div class="text-right card m-0 p-0" id="search_results" style="display: none;">
+      
+        </div>
+  
+      </div>
+      <div class="col-3">
+        <button class="btn btn-outline-success my-2 my-sm-0 float-right" type="submit">جستجو</button>
+
+      </div>
+    </div>
+  </form>
+
+</div>
+{% endif %}
+<nav class="navbar navbar-expand-lg text-white elegant-color">
+    <a class="navbar-brand" href="{% url 'home' %}">اهواز استور</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">خانه <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about_us' %}">درباره ما</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'report_to_us' %}">ثبت نظر/شکایت</a>
+        </li>
+
+        
+        {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-1" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            سبد خرید
+            
+            {% if cart.total > 0 %}
+            <span class="badge badge-danger">{{cart.items.count}}</span>
+            {% endif %}
+              
+            
+          </a>
+          <div class="dropdown-menu px-1" style="width: max-content;" aria-labelledby="navbarDropdown">
+            
+            {% for item in items %}
+              <a href="{% url 'cart' %}" class="dropdown-item p-0">
+                <div class="row m-0 p-0" >
+                  <div class="col-3">
+                    <img style="max-height: 30px !important;" src="{{item.product.image.url}}" alt="{{item.name}}">
+                  </div>
+                  <div class="col-9 text-right" style="font-size: small !important;">
+                    {{item.name}} : {{item.quantity}}
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+            <a href="{% url 'cart' %}" class="dropdown-item p-0 text-center border-top border-secondary mt-1 pt-1">
+              جمع کل : {{cart.total}}
+              تومان
+            </a>
+
+          </div>
+        </li>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav mr-auto">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-1" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="material-icons">
+              account_box
+            </span>
+            <span>
+              منو کاربری
+            </span>
+
+          </a>
+          <div class="dropdown-menu px-1 text-right" style="width: max-content;" aria-labelledby="navbarDropdown">
+            
+            <a class="dropdown-item p-0 my-1" href="{% url 'profile' %}">
+              <span class="material-icons">
+                settings
+              </span>
+              پروفایل کاربری
+            </a>
+            
+
+
+            {% if request.user.is_store %}
+            <a class="dropdown-item p-0 my-1" href="{% url 'store_home' %}">
+              <span class="material-icons">
+                store
+              </span>
+              داشبورد
+            </a>
+          {% endif %}
+              
+            
+              <a class="dropdown-item p-0 my-1" href="{% url 'account_logout' %}">
+                <span class="material-icons">
+                  exit_to_app
+                </span>
+                خروج
+              </a>
+
+          </div>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'account_signup' %}?next={{request.path}}" class="nav-link" href="#">ثبت نام</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'account_login' %}?next={{request.path}}" class="nav-link" href="#">ورود</a>
+        </li>
+          
+        {% endif %}
+
+      </ul>
+    </div>
+  </nav>

@@ -1,0 +1,53 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}ورود{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center m-0 p-0">
+  <div class="col-8 col-md-6 text-center card px-1 py-2">
+    <h1>ورود</h1>
+    <p>اگر هنوز حساب کاربری ندارید می‌توانید ابتدا در سایت <a class="text-danger" href="{{ signup_url }}">ثبت نام</a> کنید.
+
+
+      <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        <div class="row my-1">
+          <div class="col-3">نام کاربری</div>
+          <div class="col-9">{{form.login|add_class:"form-control"}}</div>
+        </div>
+        <div class="row my-1">
+          <div class="col-3">رمز عبور</div>
+          <div class="col-9">{{form.password|add_class:"form-control"}}</div>
+        </div>
+        <div class="row my-1 justify-content-center">
+          <div class="custom-control custom-checkbox">
+
+            {{form.remember|add_class:"custom-control-input"}}
+            <label class="custom-control-label" for="id_remember">مرا به خاطر بسپار</label>
+          </div>
+        </div>
+
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <p>
+          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        </p>
+
+        <button class="btn btn-success" type="submit">
+          <span class="material-icons">
+            send
+          </span>
+          {% trans "Sign In" %}
+        </button>
+      </form>
+
+  </div>
+</div>
+
+
+{% endblock %}

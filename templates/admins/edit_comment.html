@@ -1,0 +1,36 @@
+{% extends 'base_admin.html' %}
+
+
+{% load humanize %}
+{% block content %}
+<div class="row m-0 p-0 text-right card p-3">
+  <div class="row p-3">
+    <p>نظر : {{com.name}}</p>
+    {{com.comment|safe}}
+    <hr >
+  </div>
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{{form.media}}
+{# Display a form #}
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      ثبت
+    </button>
+  {% endbuttons %}
+</form>
+</div>
+
+
+{% endblock content %}
+    

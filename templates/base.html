@@ -1,0 +1,57 @@
+{% extends 'base_all.html' %}
+
+
+{% block bases %}
+
+
+
+<div class="px-3 container-fluid mt-1" dir="rtl">
+    <div class="row m-0 p-0 mt-1 d-print-none">
+        {% if messages or form.errors or form.non_field_errors %}
+        {% include 'partials/messages.html' %}
+        {% endif %}
+
+    </div>
+    
+    {% if search_page %}
+        <form action="{% url 'search' %}" method="GET">
+    {% endif %}
+        
+    <div class="row m-0 p-0">
+        <div class="col-md-12 col-sm-12 col-lg-2 p-0" dir="rtl">
+
+
+            {% block sidebar1 %}
+
+            {% endblock sidebar1 %}
+
+            
+            {% block sidebar %}
+                
+            
+                
+            {% if cat %}
+            {% include 'partials/sub_categories.html' %}
+            {% else %}
+            {% include 'partials/root_category.html' %}
+            {% endif %}
+
+            {% endblock sidebar %}
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-lg-10 pl-md-0 p-0 pr-lg-2">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+    
+    {% if search_page %}
+    </form>
+    {% endif %}
+
+    <div class="container-fluid mt-1 p-0 d-print-none" dir="rtl">
+
+    </div>
+
+</div>
+{% endblock bases %}

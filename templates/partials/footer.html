@@ -1,0 +1,142 @@
+<!-- Footer -->
+<footer class="page-footer font-small elegant-color pt-4 mt-4">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row text-right">
+
+            <!-- Grid column -->
+            <div class="col-md-4 mt-md-0 mt-3 text-justify">
+
+                <!-- Content -->
+                <h5 class="text-center">درباره ما</h5>
+
+                {% if footer %}
+                {{footer.description|safe}}
+                {% endif %}
+
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-5 mb-md-0 mb-3">
+
+                <!-- Links -->
+                <h5 class="text-center">دسته بندی ها</h5>
+
+                <div class="row m-0 p-0 justify-content-center">
+                    
+                    {% for cat in root_cats  %}
+                        <div class="col-4 text-center py-1">
+                            <a href="{{cat.get_absolute_url}}">{{cat.name}}</a>
+                        </div>
+                    {% endfor %}
+                        
+                </div>
+
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+
+                <!-- Links -->
+                <h5 class="text-uppercase text-center">راه های تماس</h5>
+
+                <ul class="list-unstyled">
+                    
+                    {% for con in footer.contacts.all %}
+                        
+                    
+                        
+                    <li class="my-1">
+                        <a href="#!">
+                            
+                            {% if con.t == 't' %}
+                            <i class="fas fa-phone"></i>
+                            {% else %}
+                            <i class="fas fa-envelope"></i>
+                            {% endif %}
+                            {{con.name}} : {{con.value}}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+
+        <!-- Grid row-->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-12">
+                <div class="mb-5 flex-center">
+
+                    {% for social in footer.socials.all %}
+                    {% if social.name == 'tl' %}
+                    <!-- Facebook -->
+                    <a class="fb-ic" href="{{social.url}}" >
+                        <i class="fab fa-telegram-plane fa-lg white-text mr-2"></i>
+                    </a>
+                    {% endif %}
+
+                    {% if social.name == 'fb' %}
+                    <!-- Facebook -->
+                    <a class="fb-ic" href="{{social.url}}" >
+                        <i class="fab fa-facebook-f fa-lg white-text mr-2"> </i>
+                    </a>
+                    {% endif %}
+                    {% if social.name == 'tw' %}
+                    <!-- Twitter -->
+                    <a class="tw-ic" href="{{social.url}}" >
+                        <i class="fab fa-twitter fa-lg white-text mr-2"> </i>
+                    </a>
+                    {% endif %}
+                    {% if social.name == 'gp' %}
+                    <!-- Google +-->
+                    <a class="gplus-ic" href="{{social.url}}" >
+                        <i class="fab fa-google-plus-g fa-lg white-text mr-2"> </i>
+                    </a>
+                    {% endif %}
+                    {% if social.name == 'li' %}
+                    <!--Linkedin -->
+                    <a class="li-ic" href="{{social.url}}" >
+                        <i class="fab fa-linkedin-in fa-lg white-text mr-2"> </i>
+                    </a>
+                    {% endif %}
+                    {% if social.name == 'in' %}
+                    <!--Instagram-->
+                    <a class="ins-ic">
+                        <i class="fab fa-instagram fa-lg white-text mr-2"> </i>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row-->
+
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© تمامی حقوق مادی و معنوی متعلق به سایت اهواز استور می باشد
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

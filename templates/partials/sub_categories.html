@@ -1,0 +1,38 @@
+<div class="card text-right p-2">
+    <div class="card-body p-0 m-0">
+        
+        {% if cat.is_root_node %}
+            <li><a href="{{cat.get_absolute_url}}">{{cat.name}}</a></li>
+            
+            {% for c in cat.get_siblings %}
+            <li><a href="{{c.get_absolute_url}}">{{c.name}}</a></li>
+            {% endfor %}
+        {% else %}
+            {% for c in cat.get_ancestors %}
+                {% if c.is_root_node %}
+                <li><a href="{{c.get_absolute_url}}">{{c.name}}</a></li>
+                {% else %}
+                <li class="pr-2 mr-1"><a href="{{c.get_absolute_url}}">{{c.name}}</a></li>
+                
+                {% if c == cat.parent %}
+                    <div class="pr-4 mr-1">
+                        <li><a href="{{cat.get_absolute_url}}">{{cat.name}}</a></li>
+                        
+                        {% for cc in cat.get_siblings  %}
+                        <li><a href="{{cc.get_absolute_url}}">{{cc.name}}</a></li>
+                        {% endfor %}
+                            
+
+                    </div>
+                {% endif %}
+                    
+                {% endif %}
+            {% endfor %}
+
+
+
+        {% endif %}
+            
+        
+    </div>
+</div>

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load jalali_tags %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+media="screen,projection" />
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/map.css' %}"
+media="screen,projection" />
+{% endblock styles %}
+    
+
+{% block sidebar1 %}
+    <div class="card text-center mb-2">
+        
+        {% if profile.image %}
+        <img class="card-img-top" src="{{profile.image.url}}" alt="{{profile.name}}">
+        {% else %}
+        <img class="card-img-top" src="{% static 'shop/img/user_av.jpg' %}" alt="{{profile.name}}">
+        {% endif %}
+            
+      
+      <div class="card-body">
+        <h4 class="card-title"><a href="profile">پروفایل شما : {{profile}}</a></h4>
+        
+        <a class="btn btn-danger" href="{% url 'logout' %}">خروج</a>
+        <a class="btn btn-secondary" href="{% url 'update_profile' %}">تغییر مشخصات </a>
+      </div>
+    </div>
+
+    <div class="card text-right my-1">
+        <div class="card-body">
+            <p>
+                <a href="{% url 'my_orders' %}">سفارشات من</a>
+            </p>
+        </div>
+    </div>
+{% endblock sidebar1 %}
+    
+
+{% block content %}
+<div class="row m-0 p-0">
+    
+    {% for cart in carts %}
+        <div class="card text-right w-100 mb-1">
+            <div class="card-header">
+                سفارش شماره : {{forloop.counter}}
+            </div>
+            <div class="card-body p-2">
+                <div class="row m-0">
+                    <div class="col">نام محصول</div>
+                    <div class="col">تعداد</div>
+                    <div class="col">قیمت تمام شده (تومان)</div>
+                </div>
+                
+                {% for item in cart.items.all %}
+                <div class="row m-0">
+                    <div class="col">{{item.product.name}}</div>
+                    <div class="col">{{item.quantity}}</div>
+                    <div class="col">{{item.total_price}}</div>
+                </div>
+                {% endfor %}
+                <div class="row m-0  grey lighten-1 py-2 px-2">
+                    هزینه کل (تومان) :  {{cart.total_with_pay}}
+                </div>
+                    
+            </div>
+            <div class="card-footer text-muted">
+                تاریخ سفارش : {{cart.order.created_date|to_jalali:'%y/%m/%d'}}
+            </div>
+        </div>
+    {% endfor %}
+        
+</div>
+{% endblock content %}
+

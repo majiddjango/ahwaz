@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block sidebar1 %}
+<div class="card text-center">
+
+    {% if profile.image %}
+    <img class="card-img-top" src="{{profile.image.url}}" alt="{{profile.name}}">
+    {% else %}
+    <img class="card-img-top" src="{% static 'shop/img/user_av.jpg' %}" alt="{{profile.name}}">
+    {% endif %}
+
+
+    <div class="card-body">
+        <h4 class="card-title"><a href="profile">پروفایل شما : {{profile}}</a></h4>
+
+        <a class="btn btn-danger" href="{% url 'logout' %}">خروج</a>
+        <a class="btn btn-secondary" href="{% url 'update_profile' %}">تغییر مشخصات </a>
+    </div>
+</div>
+{% endblock sidebar1 %}
+
+
+{% block content %}
+<div class="row m-0 p-0">
+    <div class="card w-100 text-right">
+        <div class="card-header">
+            تغییر پروفایل
+        </div>
+        <div class="card-body">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {{form.media}}
+
+                {% csrf_token %}
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.name.label}}</div>
+                        <div class="col-9">
+                            {% render_field form.name class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.last_name.label}}</div>
+                        <div class="col-9">
+                            {% render_field form.last_name class="form-control" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-6 row">
+                        {% if form.image.value %}
+                        <div class="col-3 text-center p-4">
+                            <h4>عکس فعلی : </h4>
+                            <img class="image" src="/media/{{form.image.value}}" alt="">
+                        </div>
+                        <div class="col-7 my-auto">
+                            <div class="custom-file text-center">
+                                <input type="file" name="{{form.image.name}}" class="custom-file-input" id="">
+                                <label class="custom-file-label" for="customFile">تصویر </label>
+                            </div>    
+                        </div>
+                        {% else %}
+                        <div class="col-12">
+                            <div class="custom-file text-center">
+                                <input type="file" name="{{form.image.name}}" class="custom-file-input" id="">
+                                <label class="custom-file-label" for="customFile">تصویر </label>
+                            </div>    
+                        </div>
+                        {% endif %}
+            
+
+                    </div>
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.email.label}}</div>
+                        <div class="col-9">
+                            {% render_field form.email class="form-control"  %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.phone.label}}</div>
+                        <div class="col-9">
+                            {% render_field form.phone class="form-control" %}
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 row">
+                        <div class="col-3">{{form.mobile.label}}</div>
+                        <div class="col-9">{% render_field form.mobile class="form-control"  %}</div>
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-12 row">
+                        <div class="col-12">{{form.address.label}}</div>
+                        <div class="col-12">
+                            <div class="col-12">{% render_field form.address class="form-control"  %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-md-12 row">
+                        <div class="col-12">{{form.location.label}}</div>
+                        <div class="col-12">{% render_field form.location class="form-control"  %}</div>
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0 my-1 justify-content-center">
+                    <div class="col-4">
+                        <button class="btn btn-primary btn-block">ثبت</button>
+                    </div>
+                </div>
+                
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends 'base_all.html' %}
+
+
+{% block bases %}
+
+<div class="px-3 container-fluid mt-1" dir="rtl">
+    <div class="row m-0 p-0 mt-1 d-print-none">
+        {% if messages or form.errors %}
+        {% include 'partials/messages.html' %}
+        {% endif %}
+
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-md-12 col-sm-12 col-lg-2 p-0" dir="rtl">
+
+            <div class="card text-right">
+                <div class="card-header p-2">
+                    دسترسی ها
+                </div>
+                <div class="card-body">
+                    <p class="p-1 m-0 
+                        {% if active_store_home %}
+                            active
+                        {% endif %}
+                            ">
+                        <a href="{% url 'store_home' %}">داشبورد مدیریت</a>
+                    </p>
+                    <p class="p-1 m-0 
+                        {% if active_create %}
+                            active
+                        {% endif %}
+                            ">
+                        <a href="{% url 'store_create_product' %}">اضافه کردن محصول</a>
+                    </p>
+
+                    <p class="p-1 m-0 
+                        {% if store_orders %}
+                            active
+                        {% endif %}
+                            ">
+                        <a href="{% url 'store_orders' %}">سفارشات شما</a>
+                    </p>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-lg-10 pl-md-0 p-0 pr-lg-2">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+
+    <div class="container-fluid mt-1 p-0 d-print-none" dir="rtl">
+
+    </div>
+
+</div>
+
+{% endblock bases %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row m-0 p-0 text-right">
+   <h1> محصولات در محدوده : {{area}}</h1>
+</div>
+<hr class="horizontal">
+
+
+{% if products %}
+    <div class="row m-0 p-0 mt-1">
+        {% for p in products %}
+            {% include 'product/product.html' %}
+        {% endfor %}
+    </div>
+    
+{% else %}
+    <div class="row m-0 p-0 text-center p-5 card">
+        <h5>متاسفانه محصولی یافت نشد.</h5>
+    </div>
+    
+{% endif %}
+
+{% endblock content %}
+    

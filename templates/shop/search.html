@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shop/css/jsr/main.css' %}" media="screen,projection" />
+
+{% endblock styles %}
+
+
+{% block sidebar %}
+<div class="card">
+    <div class="card-header text-right">
+        بازه قیمتی
+    </div>
+    <div class="card-body">
+        <input id="range-1-1" name="price_min" type="range" min="{{min_price}}" max="{{max_price}}"
+            >
+        <input id="range-1-2" name="price_max" type="range" min="{{min_price}}" max="{{max_price}}"
+            >
+
+    </div>
+</div>
+
+
+{% if areas %}   
+<div class="card text-right mt-1">
+    <div class="card-header">
+        محدوده
+    </div>
+    <div class="card-body">
+        
+        {% for area in areas  %}
+                    <!-- Default unchecked -->
+        <div class="custom-control custom-checkbox">
+            <input name="area" value="{{area}}" type="checkbox" class="custom-control-input" id="{{forloop.counter}}" 
+            {% if area in ars %}
+                checked
+            {% endif %}
+                >
+            <label class="custom-control-label" for="{{forloop.counter}}">{{area}}</label>
+        </div>
+
+        {% endfor %}
+            
+
+    </div>
+</div>
+{% endif %}
+
+{% endblock sidebar %}
+
+
+
+{% block content %}
+<div class="row m-0 p-0">
+    <div class="col-8 p-0 mr-4">
+        <input name="search" value="{% if q %}{{q}}{% endif %}" class="form-control w-100" type="search"
+            placeholder="جستجو ..." aria-label="Search">
+
+    </div>
+    <div class="col-3">
+        <button class="btn btn-outline-success my-2 my-sm-0 float-right" type="submit">جستجو</button>
+
+    </div>
+
+</div>
+<div class="row m-0 p-0 justify-content-center mt-2">
+    {% for p in products %}
+    {% include 'product/product.html' %}
+    {% empty %}
+    <div class="card text-center w-100">
+        <div class="card-body">
+            <h5>
+                متاسفانه محصولی یافت نشد.
+            </h5>
+        
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if products.paginator.num_pages > 1 %}
+    {% include 'partials/pagination.html' %}
+    {% endif %}
+
+</div>
+{% endblock content %}
+
+
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'shop/js/jsr/main.js' %}"></script>
+{% endblock scripts %}
+
+
+{% block extrajs %}
+<script>
+    new JSR(['#range-1-1', '#range-1-2'], {
+        sliders: 2,
+        min: {{ min_price }},
+        max: {{ max_price }},
+        values: [{{ pmin }}, {{ pmax }}],
+        labels: {
+        formatter: (value) => {
+            return value.toString() + 'تومان ';
+        }
+    },
+        limit: {
+        show: true
+    },
+        grid: false
+        });
+</script>
+{% endblock extrajs %}

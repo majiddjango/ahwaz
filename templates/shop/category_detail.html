@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<nav aria-label="breadcrumb ">
+    <ol class="breadcrumb rounded grey lighten-3">
+       <li class="mx-1">دسته بندی : </li> 
+       
+      {% for c in cat.get_ancestors %}
+        <li class="breadcrumb-item"><a href="{{c.get_absolute_url}}">{{c.name}}</a></li>
+      {% endfor %}
+      <li class="breadcrumb-item active" aria-current="page">{{cat.name}}</li>
+    </ol>
+</nav>
+<hr class="horizontal">
+
+
+{% if products %}
+    <div class="row m-0 p-0 mt-1 justify-content-center">
+        {% for p in products %}
+            {% include 'product/product.html' %}
+        {% endfor %}
+    </div>
+
+
+    {% if products.paginator.num_pages > 1 %}
+        {% include 'partials/pagination.html' %}
+    {% endif %}
+        
+{% else %}
+    <div class="row m-0 p-0 text-center p-5 card">
+        <h5>متاسفانه محصولی یافت نشد.</h5>
+    </div>
+    
+{% endif %}
+
+{% endblock content %}
+    

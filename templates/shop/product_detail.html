@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load comment_tags %}
+
+{% block content %}
+
+<div class="row m-0 p-0">
+    <div class="col-sm-12 col-md-5 my-auto">
+        <div class="row justify-content-center ">
+            <img  src="{{product.image.url}}" alt="{{product.name}}">
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-7 text-right border-right border-secondary py-3">
+        <h1>{{product.name}}</h1>
+        <h6 class="text-center">در دسته بندی : <a href="{{product.category.get_absolute_url}}">{{product.category.name}}</a></h6>
+        <h6 class="text-center">محصولی از فروشگاه : <a href="{{product.store.get_absolute_url}}">{{product.store.name}}</a></h6>
+        <h6 class="text-center">
+            قیمت : 
+            {% if product.discounted_price %}
+            <span class="text-danger text-takhfif">{{product.price}}</span>
+            {{product.discounted_price}}
+            {% else %}
+                {{product.price}}
+            {% endif %} تومان
+
+        </h6>
+        <h6 class="text-center">محدوده اعلامی فروشگاه : <a href="{% url 'area_products' product.store.area %}">{{product.store.area}}</a></h6>
+        
+        {{product.description|safe}}
+        
+        {% if request.user.is_authenticated %}            
+            <form class="form-inline" method="POST" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <label class="sr-only" for="quntity">تعداد</label>
+                <input type="number" name="quantity" class="form-control mb-2 mr-sm-2" id="quntity" placeholder="تعداد" value="1">
+                        
+                <button type="submit" class="btn btn-primary mb-2">به سبد اضافه کنید</button>
+            </form>
+        {% else %}
+        <div class="text-center">
+            <a class="btn btn-outline-danger" href="{% url 'account_login' %}?next={{request.path}}">لطفاً برای خرید وارد سایت شوید.</a>
+        </div>
+            
+        {% endif %}
+        </div>
+</div>
+
+<div class="row m-0 px-3 mt-2 py-2 mt-2">
+    <div class="card w-100 text-right">
+        <div class="card-header">
+            نظرات ({{product|count_me}})
+        </div>
+        <div class="card-body">
+            {% showcomments product %}
+            {% showform product %}
+        
+        </div>
+    </div>
+</div>
+
+
+    
+{% endblock content %}
+
+
+

@@ -1,0 +1,129 @@
+{% extends 'base_admin.html' %}
+
+
+{% load humanize %}
+{% block content %}
+<div class="row m-0 p-0 text-right mb-2 card-deck">
+    <div class="col-md-4 card p-0">
+        <div class="card-header">
+            محصولات جدید روز گذشته
+        </div>
+        <div class="card-body">
+            
+            {% if last_day_products %}
+                
+                {% for product in last_day_products %}
+                    <p>
+                        <a class="mx-2" href="{{product.get_absolute_url}}">{{product.name}}</a>
+                        <a class="mx-2 float-left" href="{% url 'edit_product_admin' product.id %}"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="mx-2 float-left" href="{{product.get_absolute_url}}"><i class="fas fa-eye"></i></a>
+                    </p>
+                {% endfor %}
+                    
+            {% else %}
+                <p>
+                    محصول جدیدی ثبت نشده است.
+                </p>
+            {% endif %}
+                
+
+        </div>
+    </div>
+    <div class="col-md-4 card p-0">
+        <div class="card-header">
+            محصولات جدید هفته گذشته
+        </div>
+        <div class="card-body">
+            {% if last_day_products %}
+                
+                {% for product in last_week_products %}
+                    <p>
+                        <a class="mx-2" href="{{product.get_absolute_url}}">{{product.name}}</a>
+                        <a class="mx-2 float-left" href="{% url 'edit_product_admin' product.id %}"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="mx-2 float-left" href="{{product.get_absolute_url}}"><i class="fas fa-eye"></i></a>
+                    </p>
+                {% endfor %}
+                    
+            {% else %}
+                <p>
+                    محصول جدیدی ثبت نشده است.
+                </p>
+            {% endif %}
+            
+        </div>
+    </div>
+    <div class="col-md-4 card p-0">
+        <div class="card-header">
+            خلاصه سفارشات
+        </div>
+        <div class="card-body">    
+            <p>
+                تعداد کل سفارشات پرداخت شده : {{orders.id__count}}
+            </p>
+            <p>
+                جمع سفارشات پرداخت شده : {{orders.total__sum|intcomma:False}} تومان
+            </p>
+            
+        </div>
+    </div>
+</div>
+<div class="row m-0 p-0">
+    
+    {% for key,value in apps.items  %}
+        <div class="col-md-6">
+            <div class="card text-right mb-1">
+                <div class="card-header">
+                    {{key}} 
+                    <span class="badge badge-pill badge-danger">{{value.count}}</span>
+                </div>
+                <div class="card-body">
+                    
+                    {% for item in value %}
+                       
+                       {% if key == 'محصولات' %}
+                        <p>
+                            <a class="mx-2" href="{{item.get_absolute_url}}">{{item.name}}</a>
+                            <a class="mx-2 float-left" href="{% url 'edit_product_admin' item.id %}"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="mx-2 float-left" href="{{item.get_absolute_url}}"><i class="fas fa-eye"></i></a>
+                        </p>
+                       {% endif %}
+                       
+                       {% if key == 'نظرات' %}
+                        <p>
+                            <a class="mx-2" href="{{item.content_object.get_absolute_url}}">نظر {{item.name}} در خصوص  {{item.content_object}}</a>
+                            <a class="mx-2 float-left" href="{% url 'edit_comment_admin' item.id %}"><i class="fas fa-pencil-alt"></i></a>
+                        </p>
+                   {% endif %}
+                   {% if key == 'کاربرها' %}
+                   <p>
+                       <a class="mx-2" >{{item.first_name}} - {{item.last_name}} ({{item.username}}) وضعیت : 
+                           
+                           {% if item.is_active %}
+                               فعال
+                           {% else %}
+                                غیرفعال
+                           {% endif %}
+                               
+                       </a>
+                       <a class="mx-2 float-left" href="{% url 'edit_user_admin' item.id %}"><i class="fas fa-pencil-alt"></i></a>
+                   </p>
+                    {% endif %}
+
+                           
+                    {% empty %}
+                    <p>
+                        آیتمی برای بررسی وجود ندارد.
+                    </p>
+                    {% endfor %}
+                        
+                </div>
+            </div>
+        
+        </div>
+    {% endfor %}
+        
+</div>
+
+
+{% endblock content %}
+    

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="robots" content="follow"/>
+    
+    {% if sitePic.favIcon %}
+    <link rel="icon" href="{{sitePic.favIcon}}" type="image/gif" sizes="16x16">
+    {% endif %}
+    {% load static %}
+
+    <link rel="canonical" href="{{request.path}}"/>
+
+    {% if DMetaDescription %}
+    <meta name="description" content="{{DMetaDescription.name}}" />
+    {% endif %}
+
+    {% if DMetaKeys %}
+    <meta name="keywords" content="{% for meta in DMetaKeys %} {{meta.name}},{% endfor %}" />
+    {% endif %}
+
+    {% if PMetaDescription %}
+    <meta name="description" content="{{PMetaDescription.name}}" />
+    {% endif %}
+
+    {% if DMetaKeys %}
+    <meta name="keywords" content="{% for meta in PMetaKeys %}{{meta.name}},{% endfor %}" />
+    {% endif %}
+    
+    {% if metaDescription %}
+    <meta name="description" content="{{metaDescription.name}}" />
+    {% endif %}
+
+    {% if metas %}
+    <meta name="keywords" content="{% for meta in metas %}{{meta.name}},{% endfor %}" />
+    {% endif %}
+
+    {% if addedMetas %}
+    {{addedMetas.metas|safe}}
+    {% endif %}
+
+    
+    <title>
+        {% block title %} 
+        {% if site_title %}
+            {{site_title}} | {{title}}
+        {% else %}
+            {{title}}
+        {% endif %}
+        {% endblock title %}
+    </title>
+    <meta charset="UTF-8">
+    <!--===============================================================================================-->
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--Import Google Icon Font-->
+   
+    <!--Import materialize.css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/css/bootstrap.min.css' %}"
+    media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/css/mdb.min.css' %}"
+    media="screen,projection" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    
+    
+
+    <!--Let browser know website is optimized for mobile-->
+    
+    <style>
+        @font-face {
+            font-family: vazir;
+            src: url("{% static 'shop/font/bkoodak.ttf' %}") format('truetype');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: vazir;
+            src: url("{% static 'shop/font/bkoodak.ttf' %}") format('truetype');
+            font-weight: bold;
+        }
+        @font-face {
+            font-family: Bkoodak;
+            src: url("{% static 'shop/font/bkoodak.ttf' %}") format('truetype');
+            font-weight: normal;
+        }
+
+        *:not(i){
+            font-family: 'vazir';
+        }
+
+</style>
+
+<style>
+    .custom-select2-widget {
+      width: 100%;
+    }
+      .free-space {
+        margin-top: 50px;
+      }
+    
+      .toggle-handle {
+        background: #fff;
+      }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/css/main.css' %}"
+    media="screen,projection" />
+    {% block styles %}
+
+    {% endblock styles %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+
+</head>
+
+<body dir="rtl" class="grey lighten-4">
+
+    {% include 'partials/nav.html' %}
+
+    
+    {% block bases %}
+        
+    {% endblock bases %}
+
+    {% include 'partials/footer.html' %}
+        
+    
+    <script type="text/javascript" src="{% static 'shop/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'shop/js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'shop/js/jquery.toast.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'shop/js/mdb.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'shop/js/main.js' %}"></script>
+
+
+
+    
+    {% block scripts %}
+
+    {% endblock scripts %}
+
+    
+    {% block extrajs %}
+        
+    {% endblock extrajs %}
+        
+
+</body>
+
+</html>

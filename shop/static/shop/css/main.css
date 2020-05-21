@@ -1,0 +1,134 @@
+.mega_content{
+/* right: calc(100% /12); */
+right: 16px;
+
+width: calc(100% - 32px) !important;
+}
+
+
+.text-takhfif{
+    color: red;
+    text-decoration: red line-through;
+}
+li{
+    list-style: none;
+}
+
+a{
+    color: unset;
+}
+a:hover{
+    color: red !important;
+}
+
+.product:hover{
+    z-index: 10000000;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+* {
+    border-radius: unset !important;
+}
+
+.close{
+    right: unset !important;
+    left: 0 !important;
+}
+
+.dropdown-menu{
+    border-radius: unset !important;
+}
+
+.imag_container {
+    position: relative;
+  }
+  
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10%;
+    width: 30%;
+    opacity: 1;
+    transition: .5s ease;
+    background-color: red;
+  }
+  
+  .text {
+    color: white;
+    /* font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
+    text-align: center;
+  }
+
+  .breadcrumb-item+.breadcrumb-item::before{
+      display:inline-block;
+      padding-right:.5rem;
+      color:#6c757d;
+      content:"/";
+      padding-left: 0.5rem !important;}
+
+      #id_category{
+        width: 85% !important;
+    }
+
+.django-ckeditor-widget{
+    width: 100% !important;
+}
+.cke{
+    width: 100% !important;
+}
+
+/* .custom-file-label{
+    display: table !important;
+    width: 30% !important;
+} */
+
+p.active{
+    color: red !important;
+}
+
+.material-icons{
+    vertical-align: middle !important;
+}
+
+.custom-control.custom-checkbox{padding-left: 0;}
+
+label.custom-control-label {
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+label.custom-control-label::before, label.custom-control-label::after{
+  right: 0;
+  left: auto;
+}
+
+.img-icon{
+    width: 40px !important;
+    height: 40px !important;
+}
+
+#search_results{
+    z-index: 100000;
+    width: inherit;
+    position: absolute;
+}
+
+.form-check-label{
+    margin-right: 20px;
+}

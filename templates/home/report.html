@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+
+{% block content %}
+<div class="row m-0 p-0">
+    <div class="card w-100 text-right">
+        <div class="card-header">
+            ثبت نظر یا شکایت
+        </div>
+        <div class="card-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-2 pr-0">
+                        <label for="id_{{form.name.name}}">{{form.name.label}} : </label>
+                    </div>
+                    <div class="col-10 pr-0 pl-0">{{form.name|add_class:"form-control"}}
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-2 pr-0">
+                        <label for="id_{{form.last_name.name}}">{{form.last_name.label}} : </label>
+                    </div>
+                    <div class="col-10 pr-0 pl-0">{{form.last_name|add_class:"form-control"}}
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-2 pr-0">
+                        <label for="id_{{form.email.name}}">{{form.email.label}} : </label>
+                    </div>
+                    <div class="col-10 pr-0 pl-0">{{form.email|add_class:"form-control"}}
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0 my-1">
+                    <div class="col-2 pr-0">
+                        <label for="id_{{form.problem.name}}">{{form.problem.label}} : </label>
+                    </div>
+                    <div class="col-10 pr-0 pl-0">{{form.problem|add_class:"form-control"}}
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">ثبت</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
