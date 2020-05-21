@@ -2,14 +2,14 @@
 
 
 {% block content %}
-<div class="row m-0 p-0 text-right">
+<div class="row m-0 p-0 text-right bg-white">
    <h1> محصولات در محدوده : {{area}}</h1>
 </div>
 <hr class="horizontal">
 
 
 {% if products %}
-    <div class="row m-0 p-0 mt-1">
+    <div class="row m-0 p-0 mt-1 bg-white">
         {% for p in products %}
             {% include 'product/product.html' %}
         {% endfor %}
